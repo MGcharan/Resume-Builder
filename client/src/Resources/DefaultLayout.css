@@ -1,0 +1,63 @@
+/* DefaultLayout.css */
+
+.layout {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Full viewport height */
+    width: 100%;
+    padding: 20px 50px;
+    overflow: hidden; /* Remove scroll bar */
+  }
+  
+  @media (max-width: 576px) {
+    .layout {
+      padding: 10px 20px; /* Adjust padding for mobile */
+    }
+  }
+  
+  .header {
+    height: 10%;
+    background-color: rgba(0, 0, 0, 0.85);
+    color: rgba(255, 255, 255, 0.589);
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+  }
+  
+  .header h1 {
+    font-size: 28px;
+    margin: 0; /* Remove default margin */
+  }
+  
+  .content {
+    flex: 1;
+    border: 2px solid grey;
+    margin-top: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 3px rgba(128, 128, 128, 0.517);
+    padding: 10px;
+    overflow: auto; /* Allow scrolling within the content area if needed */
+  }
+  
+  .btn {
+    border: 2px solid white !important;
+    color: white;
+    padding-top: 2px;
+    border: none !important;
+    box-shadow: 2px 0px 2px 2px gold !important;
+    text-decoration: none;
+    background-color: transparent; /* Ensure button background is transparent */
+  }
+  
+  .btn:hover {
+    box-shadow: -2px -2px white !important;
+    color: black!important;
+    background-color: rgba(0, 128, 0, 0.767) !important;
+  }
+  
+  .link {
+    text-decoration: none !important;
+  }
+  
