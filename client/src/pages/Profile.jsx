@@ -8,44 +8,25 @@ import Experience from "../components/Experience";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-// JWT decode function
-function decodeJWT(token) {
-  try {
-    const base64Url = token.split(".")[1];
-    const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-    const jsonPayload = decodeURIComponent(
-      atob(base64)
-        .split("")
-        .map((c) => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
-        .join("")
-    );
-    return JSON.parse(jsonPayload);
-  } catch (error) {
-    console.error("Failed to decode JWT token:", error);
-    return null;
-  }
-}
-
 function Profile() {
   const [form] = Form.useForm();
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    const decodedUser = token ? decodeJWT(token) : null;
-    if (decodedUser) {
-      setUser(decodedUser);
-      form.setFieldsValue(decodedUser);
+    const storedUser = JSON.parse(localStorage.getItem("token"));
+    if (storedUser) {
+      setUser(storedUser);
+      form.setFieldsValue(storedUser);
     }
   }, [form]);
 
   const onFinish = async (values) => {
     try {
-      const result = await axios.post("http://localhost:4000/api/user/update", {
-        ...values,
-        _id: user._id,
-      });
+      const result = await axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}/api/user/update`,
+        { ...values, _id: user._id }
+      );
       localStorage.setItem("token", JSON.stringify(result.data));
       message.success("Profile updated successfully");
       navigate("/home"); // Navigate to home after successful update

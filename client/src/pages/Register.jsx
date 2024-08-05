@@ -6,42 +6,40 @@ import axios from "axios";
 import "../Resources/authentication.css";
 
 function Register() {
-  const [loading,setLoading]=useState(false)
-  const navigate=useNavigate()
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const handleFinish = async (values) => {
-    setLoading(true)
+    setLoading(true);
     try {
-      const res = await axios.post("http://localhost:4000/api/user/register", values);
-      setLoading(false)
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}/api/user/register`,
+        values
+      );
+      setLoading(false);
       if (res.status === 201) {
         message.success("Registration successful");
-        localStorage.setItem("token",JSON.stringify(res.data))
+        localStorage.setItem("token", JSON.stringify(res.data));
         navigate("/home");
       } else {
         message.error("Registration failed");
       }
     } catch (error) {
-      message.error(`Registration failed: ${error.response?.data?.error || error.message}`);
+      message.error(
+        `Registration failed: ${error.response?.data?.error || error.message}`
+      );
       setLoading(false);
     }
   };
 
-
-  useEffect(()=>{
-    if(localStorage.getItem("token")){
-      navigate('/home')
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      navigate("/home");
     }
-
-  })
-
-
-
-
-
+  });
 
   return (
     <div className="auth-parent">
-      {loading &&(<Spin size='large'/>)}
+      {loading && <Spin size="large" />}
       <Form layout="vertical" onFinish={handleFinish}>
         <h1>REGISTER</h1>
         <hr />
@@ -53,7 +51,6 @@ function Register() {
           <Input placeholder="Enter username" />
         </Form.Item>
 
-       
         <Form.Item
           name="password"
           label="Password"
@@ -61,7 +58,8 @@ function Register() {
             { required: true, message: "Please input your password!" },
             {
               pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/,
-              message: "Password must be at least 6 characters long and include both letters and numbers",
+              message:
+                "Password must be at least 6 characters long and include both letters and numbers",
             },
           ]}
         >
@@ -71,16 +69,18 @@ function Register() {
         <Form.Item
           name="confirmPassword"
           label="Confirm Password"
-          dependencies={['password']}
+          dependencies={["password"]}
           hasFeedback
           rules={[
             { required: true, message: "Please confirm your password!" },
             ({ getFieldValue }) => ({
               validator(_, value) {
-                if (!value || getFieldValue('password') === value) {
+                if (!value || getFieldValue("password") === value) {
                   return Promise.resolve();
                 }
-                return Promise.reject(new Error("The two passwords do not match!"));
+                return Promise.reject(
+                  new Error("The two passwords do not match!")
+                );
               },
             }),
           ]}
@@ -88,9 +88,18 @@ function Register() {
           <Input.Password type="password" placeholder="Confirm password" />
         </Form.Item>
 
-        <p className="para">Already have an account ? <Link to="/login" className="lin">Login</Link></p>
+        <p className="para">
+          Already have an account ?{" "}
+          <Link to="/login" className="lin">
+            Login
+          </Link>
+        </p>
 
-        <Button className="d-flex align-items-center justify-content-center" type="primary" htmlType="submit">
+        <Button
+          className="d-flex align-items-center justify-content-center"
+          type="primary"
+          htmlType="submit"
+        >
           Register
         </Button>
       </Form>
