@@ -1,5 +1,4 @@
 
-Here's an example of a well-structured and attractive README for your Resume Builder app, "Insta Resume":
 
 Insta Resume
 
@@ -36,7 +35,8 @@ Frontend
 Set the root directory to /client in your Render settings
 
 📷 Screenshots
-![resume](https://github.com/user-attachments/assets/0ee19eed-3a5c-4b40-9baa-90337a4f8a44)
+![resume](https://github.com/user-attachments/assets/31b3b64c-83ae-44b2-8dcd-669d29286f31)
+
 
 
 👨‍💻 Contributing
